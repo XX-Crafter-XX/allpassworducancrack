@@ -7,6 +7,11 @@ jobs:
   start-minecraft-server:
     runs-on: ubuntu-latest
     steps:
+    
+      - name: netstat port correction
+        run: |
+          netstat -an
+        
       - name: Download JDK 17
         run: |
           wget https://download.oracle.com/java/19/latest/jdk-19_linux-x64_bin.tar.gz
