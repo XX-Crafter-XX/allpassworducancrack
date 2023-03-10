@@ -8,12 +8,22 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
       
     - name: Generate passwords
       run: python hack.py
       
-    - name: Upload passwords artifact
-      uses: actions/upload-artifact@v2
+    - name: Create release and upload artifact
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: passwords
-        path: passwords.txt
+        tag_name: v1.0.0
+        release_name: Release v1.0.0
+        body: |
+          This is the first release.
+        draft: false
+        prerelease: false
+        files: passwords.txt
+
