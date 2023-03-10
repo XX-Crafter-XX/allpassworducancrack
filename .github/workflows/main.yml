@@ -10,7 +10,7 @@ jobs:
       - name: Install JDK
         run: |
           sudo apt-get update -y
-          sudo apt-get install openjdk-16-jdk -y
+          sudo apt-get install default-jdk -y
           
       - name: dir
         run: |
