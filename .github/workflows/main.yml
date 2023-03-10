@@ -1,20 +1,46 @@
-name: Run custom shell commands
+name: Install JDK and start Minecraft server
 
 on:
   workflow_dispatch:
 
 jobs:
-  run-commands:
+  start-minecraft-server:
     runs-on: ubuntu-latest
     steps:
-      - name: Run custom shell commands
+      - name: Install JDK
         run: |
-          echo "Enter your shell commands below (type 'exit' to end input):"
-          while true; do
-            read commands
-            if [ "$commands" = "exit" ]; then
-              break
-            else
-              eval $commands
-            fi
-          done
+          sudo apt-get update
+          sudo apt-get install -y openjdk-11-jdk
+          
+      - name: dir
+        run: |
+          dir
+
+          
+      - name: Grab the jar
+        run: |
+          wget https://piston-data.mojang.com/v1/objects/c9df48efed58511cdd0213c56b9013a7b5c9ac1f/server.jar -O server.jar
+          
+      - name: dir 2
+        run: |
+          dir
+          
+      - name: Ip
+        run: |
+          ifconfig
+
+      - name: Prestart the server
+        run: |
+          java -Xmx1024M -Xms1024M -jar server.jar nogui
+
+      - name: Set Minecraft EULA to true
+        run: |
+          sed -i 's/eula=false/eula=true/' eula.txt
+
+      - name: Set server port to 80
+        run: |
+          sed -i 's/^server-port=.*/server-port=80/' server.properties
+
+      - name: Start Minecraft server
+        run: |
+          java -Xmx1024M -Xms1024M -jar server.jar nogui
