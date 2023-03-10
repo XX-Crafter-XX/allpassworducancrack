@@ -9,7 +9,7 @@ def generate_passwords(start, end, filename):
     with open(filename, 'a') as file:
         for password in itertools.product(possible_digits, repeat=password_length):
             password_str = ''.join(password)
-            file.write(password_str + '\n')
+            print(password_str)
 
 if __name__ == '__main__':
     # Get the number of CPU cores available
