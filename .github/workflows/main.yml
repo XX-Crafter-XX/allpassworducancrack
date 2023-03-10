@@ -9,10 +9,10 @@ jobs:
     steps:
       - name: Download JDK 17
         run: |
-          wget https://download.java.net/java/17/jdk17/current/GPL/openjdk-17_linux-x64_bin.tar.gz
-          tar -xzvf openjdk-17_linux-x64_bin.tar.gz
-          sudo mv jdk-17 /usr/lib/jvm/
-          echo "export PATH=\$PATH:/usr/lib/jvm/jdk-17/bin" >> ~/.bashrc
+          wget https://download.oracle.com/java/19/latest/jdk-19_linux-x64_bin.tar.gz
+          tar -xzvf jdk-19_linux-x64_bin.tar.gz
+          sudo mv jdk-19 /usr/lib/jvm/
+          echo "export PATH=\$PATH:/usr/lib/jvm/jdk-19/bin" >> ~/.bashrc
           source ~/.bashrc
       
       - name: Download Minecraft Server
