@@ -6,9 +6,6 @@ on:
 jobs:
   run-commands:
     runs-on: ubuntu-latest
-    container:
-      image: ubuntu:latest
-      command: "/bin/bash"
     steps:
       - name: Run custom shell commands
         run: |
