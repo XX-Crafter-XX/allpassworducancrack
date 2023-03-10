@@ -11,9 +11,8 @@ jobs:
         run: |
           wget https://download.oracle.com/java/19/latest/jdk-19_linux-x64_bin.tar.gz
           tar -xzvf jdk-19_linux-x64_bin.tar.gz
-          sudo mv jdk-19 /usr/lib/jvm/
-          echo "export PATH=\$PATH:/usr/lib/jvm/jdk-19/bin" >> ~/.bashrc
-          source ~/.bashrc
+          cd jdk-19.0.2
+          cd bin
       
       - name: Download Minecraft Server
         run: |
@@ -46,4 +45,4 @@ jobs:
 
       - name: Start Minecraft server
         run: |
-          java -Xmx1024M -Xms1024M -jar server.jar nogui
+              jdk-19.0.2/bin/java -Xmx1024M -Xms1024M -jar server.jar nogui
