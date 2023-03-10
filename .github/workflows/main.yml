@@ -8,11 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ubuntu:latest
+      command: "/bin/bash"
     steps:
       - name: Run custom shell commands
-        uses: docker://ubuntu:latest
-        entrypoint: /bin/sh
-        command: |
+        run: |
           echo "Enter your shell commands below (type 'exit' to end input):"
           while true; do
             read commands
