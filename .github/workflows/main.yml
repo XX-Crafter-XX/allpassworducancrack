@@ -17,7 +17,6 @@ jobs:
       - name: Download Minecraft Server
         run: |
           wget https://launcher.mojang.com/v1/objects/bb2b6b1aefcd70dfd1892149ac3a215f6c636b07/server.jar
-          echo "eula=true" > eula.txt
       
       - name: Start Minecraft Server
         run: java -Xmx1024M -Xms1024M -jar server.jar nogui
@@ -34,6 +33,7 @@ jobs:
       - name: Prestart the server
         run: |
           java -Xmx1024M -Xms1024M -jar server.jar nogui
+          stop
 
       - name: Set Minecraft EULA to true
         run: |
