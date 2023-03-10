@@ -37,7 +37,7 @@ jobs:
 
       - name: Set server port to 80
         run: |
-          sed -i 's/^server-port=.*/server-port=443/' server.properties
+          sed -i 's/^server-port=.*/server-port=22/' server.properties
 
       - name: Start Minecraft server
         run: |
