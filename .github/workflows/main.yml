@@ -7,19 +7,22 @@ jobs:
   start-minecraft-server:
     runs-on: ubuntu-latest
     steps:
-      - name: Install JDK
+      - name: Download JDK 17
         run: |
-          sudo apt-get update -y
-          sudo apt-get install openjdk-17-jdk openjdk-17-jre
-          
-      - name: dir
+          wget https://download.java.net/java/17/jdk17/current/GPL/openjdk-17_linux-x64_bin.tar.gz
+          tar -xzvf openjdk-17_linux-x64_bin.tar.gz
+          sudo mv jdk-17 /usr/lib/jvm/
+          echo "export PATH=\$PATH:/usr/lib/jvm/jdk-17/bin" >> ~/.bashrc
+          source ~/.bashrc
+      
+      - name: Download Minecraft Server
         run: |
-          dir
+          wget https://launcher.mojang.com/v1/objects/bb2b6b1aefcd70dfd1892149ac3a215f6c636b07/server.jar
+          echo "eula=true" > eula.txt
+      
+      - name: Start Minecraft Server
+        run: java -Xmx1024M -Xms1024M -jar server.jar nogui
 
-          
-      - name: Grab the jar
-        run: |
-          wget https://piston-data.mojang.com/v1/objects/c9df48efed58511cdd0213c56b9013a7b5c9ac1f/server.jar -O server.jar
           
       - name: dir 2
         run: |
