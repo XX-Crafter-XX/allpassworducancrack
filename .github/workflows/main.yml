@@ -1,4 +1,4 @@
-name: Python Script
+name: Generate Passwords
 
 on: [push]
 
@@ -16,5 +16,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-    - name: Run Python script
+        pip install itertools
+        pip install multiprocessing
+    - name: Generate passwords
       run: python hack.py
