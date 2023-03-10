@@ -9,8 +9,8 @@ jobs:
     steps:
       - name: Install JDK
         run: |
-          sudo apt-get update
-          sudo apt-get install -y openjdk-11-jdk
+          sudo apt-get update -y
+          sudo apt-get install openjdk-16-jdk -y
           
       - name: dir
         run: |
