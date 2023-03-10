@@ -3,16 +3,17 @@ name: Generate Passwords
 on: [push]
 
 jobs:
-  build:
-
+  generate-passwords:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Generate passwords
+      run: python generate_passwords.py
+      
+    - name: Upload passwords artifact
+      uses: actions/upload-artifact@v2
       with:
-        python-version: 3.8
-    - name: Install dependencies
-      run: |
-        python hack.py
+        name: passwords
+        path: passwords.txt
